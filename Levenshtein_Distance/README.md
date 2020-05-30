@@ -16,9 +16,7 @@
     - Delete the "E" at the end, so we get "ROS" as desired (DELETION)
 - Therefore the solution becomes determining what the optimal choice is amongst replacement, deletion and insertion.
 - Using an interative top-down approach we can break our problem into much smaller problems, solving those to choose our solution, observe the following table:
-  INSERT IMAGE HERE
-
-
+  ![alt text](https://github.com/akashvshroff/Text_Based_Algorithms/blob/master/Levenshtein_Distance/Explanation_Images/example_grid.jpg)
 - For any row or column in the grid : i,j the number determines how to convert the string HORSE[:i+1] to ROS[:j+1].
 - Therefore analysing the 2 strings, starting from an empty string till the whole string, there are 2 possible options:
     - If the 2 characters are the same, such as ' ' and ' ' the number of conversions required are 0.
@@ -34,8 +32,7 @@
     - Inserting a character would ideally refer to the same row, next column but since this would mean we are going ahead in time, this is not possible and therefore we modify inserting a character into string1 to deleting that character from string2 as you would only insert a character that is present in string2 given the goal of optimality. Therefore we consider the previous row, same column i.e index 2,2 where our score is 1.
     - Now choosing the optimal number of transformations means choosing the lowest of these 3 scores and then adding 1 to account for our transformation.
     - Observe the following picture:
-      INSERT IMAGE HERE
-      
+      ![alt text](https://github.com/akashvshroff/Text_Based_Algorithms/blob/master/Levenshtein_Distance/Explanation_Images/reference_grid.jpg) 
 - Therefore using an iterative top-down approach, we can build our matrix row by row and our final answer becomes the number in the final row, final column - marked in blue above! That is our Levenshtein distance.
 - While I do not believe text is the best means to understand complex algorithms, I hope I did a fairly okay job at explaining the program - the resources I used to understand this program are:
     - [BackToBack SWE]([https://www.youtube.com/watch?v=MiqoA-yF-0M&t=639s](https://www.youtube.com/watch?v=MiqoA-yF-0M&t=639s))
