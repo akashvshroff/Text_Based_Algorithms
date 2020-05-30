@@ -69,7 +69,7 @@ def main():
     num_words = 50
     word_gen = generate_sentence(words, pair_dict, num_words)
     if word_gen[-1] not in end_words:
-        word_gen.append(np.random.choice(end_words))
+        word_gen.append(random.choice(end_words))
     print(' '.join(word_gen))
 
 
