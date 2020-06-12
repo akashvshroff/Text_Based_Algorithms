@@ -1,6 +1,6 @@
 # Outline:
 
-- In mathematical terms, a Markov Chain is a model that outlines an outcome or a sequence of events where the probability of each event depends solely on the event that precedes it. In terms of text processing, a Markov Chain is used to generate random sentences from some corpus of words based on probability of pairs. A more detailed description of how it works is presented below.
+- In strictly mathematical terms, a Markov Chain is a model that outlines an outcome or a sequence of events where the probability of each event depends solely on the event that precedes it. In terms of text processing, a Markov Chain is used to generate random sentences from some corpus of words based on probability of pairs. A more detailed description of how it works is presented below.
 
 # Purpose:
 
