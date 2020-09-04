@@ -17,7 +17,7 @@
 ### What is hashing anyway?
 - Hashing, quite simply put, is the process of converting a 'key' (it can be any object of any length) into a fixed-length value called a hash through some form of expression (usually mathematic).
 - Now certain ideas pop out. A key can realistically be any object but for now, we will consider a string since that is what we are dealing with mainly. To convert a key into a hash, you have to make a deterministic conversion, i.e the hashing algorithm can only convert a particular key to a particular hash (but many keys can have the same hash - we'll cover this). Therefore a hash cannot be random.
-- To illustrate this, consider a simple hashing algorithm where keys are converted to their ASCII value, summed and the sum is then taken mod 20 (If you are unfamiliar with modular arithmetic or do not remember it, please take a refresher [here]([https://brilliant.org/wiki/modular-arithmetic/](https://brilliant.org/wiki/modular-arithmetic/)) since I refer to it a lot!)
+- To illustrate this, consider a simple hashing algorithm where keys are converted to their ASCII value, summed and the sum is then taken mod 20 (If you are unfamiliar with modular arithmetic or do not remember it, please take a refresher [here](https://brilliant.org/wiki/modular-arithmetic/) since I refer to it a lot!)
 - The string "ABC" would therefore be (65+66+67)%20 which is 198%20 which is finally 18. While the string "ABCDBSDBBEHWBEWHEB" would be 12 (take my word for it...). Using such a procedure, any string can be converted to a number from 0 to 19. A side note: if we have we want to store only strings as keys, we have successfully implemented a basic version of a dictionary! We can maintain an array of size 20 and therefore for any key, you can convert it to an index position and store a value at the corresponding position! Any conversion therefore cannot be random since you want to be able to access the same index!
 - Now there are glaring issues with our implementation but one such error stands out - look at the string "ABC" and the string "UVW". Using this procedure, we get the same hash value - 18. This is called a **collision**.
 
@@ -26,3 +26,50 @@
 - Above I discussed using hashing to implement a dictionary but a dictionary has to be built to account for collisions - this can be done by storing a tuple of (key, value) in a list at the index position instead of storing just the value. Therefore in case of a collision, the tuple can simply be appended to the end of the list at the index position and to find a key, you can scan the list at the index position and match the key. Thus, it is very important to ensure that you get a dictionary with relatively fast look-ups, you have you craft a hash-function that can evenly distribute hashes across the indices and doesn't simply hash everything to the same value.
 
 ### What is a good hash?
+### What is a good hash?
+
+- Now, rather than delving into the theory behind what makes a good hashing function and the concept of a universal family of hashes, I want to show you the two hashing algorithms that I've used in these programs, both polynomial hashes, where a large prime (greater than length of input string) and constant multiplier are used to minimise collisions to a probability of n/m where n is the length of the input and m is the prime number (read about it more [here.](https://cp-algorithms.com/string/string-hashing.html))
+- The first hash I employed is as follows:
+
+    ```python
+    def poly_hash(s, P, X):
+        """
+        Hash a string using a polynomial hashing function that uses a large prime
+        number (P) and a multiplier (X). The hashing uses the ascii code of each
+        letter.
+        """
+        ans = 0
+        for c in reversed(s):
+            ans = (ans * X + ord(c)) % P
+        return ans
+    ```
+
+    - This function is simply the summation of the characters of the string in ascii*X (multiplier) and at each step the hash is taken mod P (large prime) in order to ensure the hash does not get too big.
+    - Mathematically, this is represented as:
+
+        $$\sum_{i=0}^{n-1} s[i] \cdot X^i \mod P
+        $$
+
+    - Where n is the length of the string s.
+- The second hash function that I employed was:
+
+    ```python
+    def hash_function(s, X, P):
+        """
+        Taking a string s, return its hash value by using a hash function where
+        for a string s(s0,s1...sm-1) i.e of length m, the hash is a sum of s[j]*X(m-j-1)
+        for j from 0 to m-1.
+        """
+        ans = 0
+        m = len(s)
+        for j in range(m):
+            ans = (ans + ord(s[j])*pow(X, m-j-1)) % P
+        return ans
+    ```
+
+    - This hash function looks slightly more complex, but it really isn't, the only difference is the fact that the multiplier is taken as an exponent to the power of the length of the remaining chars, therefore going from m-1 to 0.
+    - Again, mathematically, this is:
+
+        $$\sum_{j=0}^{m-1} s[j] \cdot X^{m-j-1}\mod P$$
+
+    - Where m is the length of the string s.
