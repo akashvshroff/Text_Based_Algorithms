@@ -15,3 +15,10 @@
 - To help you understand hashing and these programs, I want to define a few things and explain some ideas and then you'll be able to understand how the concepts have been used to solve the programs!
 
 ### What is hashing anyway?
+- Hashing, quite simply put, is the process of converting a 'key' (it can be any object of any length) into a fixed-length value called a hash through some form of expression (usually mathematic).
+- Now certain ideas pop out. A key can realistically be any object but for now, we will consider a string since that is what we are dealing with mainly. To convert a key into a hash, you have to make a deterministic conversion, i.e the hashing algorithm can only convert a particular key to a particular hash (but many keys can have the same hash - we'll cover this). Therefore a hash cannot be random.
+- To illustrate this, consider a simple hashing algorithm where keys are converted to their ASCII value, summed and the sum is then taken mod 20 (If you are unfamiliar with modular arithmetic or do not remember it, please take a refresher [here]([https://brilliant.org/wiki/modular-arithmetic/](https://brilliant.org/wiki/modular-arithmetic/)) since I refer to it a lot!)
+- The string "ABC" would therefore be (65+66+67)%20 which is 198%20 which is finally 18. While the string "ABCDBSDBBEHWBEWHEB" would be 12 (take my word for it...). Using such a procedure, any string can be converted to a number from 0 to 19. A side note: if we have we want to store only strings as keys, we have successfully implemented a basic version of a dictionary! We can maintain an array of size 20 and therefore for any key, you can convert it to an index position and store a value at the corresponding position! Any conversion therefore cannot be random since you want to be able to access the same index!
+- Now there are glaring issues with our implementation but one such error stands out - look at the string "ABC" and the string "UVW". Using this procedure, we get the same hash value - 18. This is called a **collision**.
+
+### What is a collision?
