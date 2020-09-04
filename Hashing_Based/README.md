@@ -22,3 +22,7 @@
 - Now there are glaring issues with our implementation but one such error stands out - look at the string "ABC" and the string "UVW". Using this procedure, we get the same hash value - 18. This is called a **collision**.
 
 ### What is a collision?
+- A collision is a situation where 2 keys that are not equal, have the same hash and this can lead to some problems but can be well avoided by choosing a better hash function (Here I thought my simple hash function was enough...)
+- Above I discussed using hashing to implement a dictionary but a dictionary has to be built to account for collisions - this can be done by storing a tuple of (key, value) in a list at the index position instead of storing just the value. Therefore in case of a collision, the tuple can simply be appended to the end of the list at the index position and to find a key, you can scan the list at the index position and match the key. Thus, it is very important to ensure that you get a dictionary with relatively fast look-ups, you have you craft a hash-function that can evenly distribute hashes across the indices and doesn't simply hash everything to the same value.
+
+### What is a good hash?
