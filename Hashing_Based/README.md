@@ -26,7 +26,6 @@
 - Above I discussed using hashing to implement a dictionary but a dictionary has to be built to account for collisions - this can be done by storing a tuple of (key, value) in a list at the index position instead of storing just the value. Therefore in case of a collision, the tuple can simply be appended to the end of the list at the index position and to find a key, you can scan the list at the index position and match the key. Thus, it is very important to ensure that you get a dictionary with relatively fast look-ups, you have you craft a hash-function that can evenly distribute hashes across the indices and doesn't simply hash everything to the same value.
 
 ### What is a good hash?
-### What is a good hash?
 
 - Now, rather than delving into the theory behind what makes a good hashing function and the concept of a universal family of hashes, I want to show you the two hashing algorithms that I've used in these programs, both polynomial hashes, where a large prime (greater than length of input string) and constant multiplier are used to minimise collisions to a probability of n/m where n is the length of the input and m is the prime number (read about it more [here.](https://cp-algorithms.com/string/string-hashing.html))
 - The first hash I employed is as follows:
@@ -73,3 +72,7 @@
         $$\sum_{j=0}^{m-1} s[j] \cdot X^{m-j-1}\mod P$$
 
     - Where m is the length of the string s.
+
+    - Now since I have shown you the hash functions that I used, let me show you why I used them and the one key feature that makes hashing so powerful.
+
+### Rolling hash functions:
