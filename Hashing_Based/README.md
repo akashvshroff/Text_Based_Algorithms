@@ -47,9 +47,8 @@
     - This function is simply the summation of the characters of the string in ascii*X (multiplier) and at each step the hash is taken mod P (large prime) in order to ensure the hash does not get too big.
     - Mathematically, this is represented as:
 
-        $$\sum_{i=0}^{n-1} s[i] \cdot X^i \mod P
-        $$
-
+        ![alt-text](https://github.com/akashvshroff/Text_Based_Algorithms/blob/master/Hashing_Based/Equations/h1.svg)
+        
     - Where n is the length of the string s.
 - The second hash function that I employed was:
 
@@ -70,6 +69,6 @@
     - This hash function looks slightly more complex, but it really isn't, the only difference is the fact that the multiplier is taken as an exponent to the power of the length of the remaining chars, therefore going from m-1 to 0.
     - Again, mathematically, this is:
 
-        $$\sum_{j=0}^{m-1} s[j] \cdot X^{m-j-1}\mod P$$
+        ![alt-text](https://github.com/akashvshroff/Text_Based_Algorithms/blob/master/Hashing_Based/Equations/h2.svg)
 
     - Where m is the length of the string s.
