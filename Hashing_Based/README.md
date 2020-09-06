@@ -170,3 +170,6 @@
 - Here, mid serves as that k and if a substring of length mid is found, you try a higher mid, else you move lower until you find one that works!
 - To search for the hashes, it processes the 2 strings and searches for common substrings of length mid. It does so by choosing the smaller string and converting that into a hash-dictionary, where the key is a hash and the value is the index where that hash starts. For the larger one, it converts it into a regular hash-table in the form of an array where the index of the array refers to the starting position.
 - It then runs through the values of the hash-table and looks for matches in the hash-dict and if found, it stores the necessary starting positions. This process repeats twice for each of the prime numbers and if both return true, this indicates that there is a definitely a common substring and the binary search moves accordingly.
+
+### Conclusion:
+- And that is all for today! If you had any difficulties understanding the programs, don't worry, I struggled with them at first too! Feel free to contact me to learn more.
