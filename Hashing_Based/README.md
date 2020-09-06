@@ -151,3 +151,22 @@
 - This program takes in one string and 3 inputs (start1,start2,length) and it outputs Yes if the substring from start1 till start1+length is equal to the substring from start2 to start2 + length. Instead of constantly splicing the string and checking for equality, using the second hashing algorithm and subsequent rolling hash, we can pre-process the string and generate a hash table from which we can obtain the hash-value for any substring in constant time.
 - We pre-process the string into 2 hash-tables in order to further minimize the chances of collisions and match the hashes twice and output 'Yes' if they match, else 'No'.
 - This program effectively displays the power of hashing in massively reducing the time it takes to solve a program.
+
+### Longest Common Substring:
+- This program is slightly more complex and given two strings, it aims to find the longest common substring using hashing and binary search in order to achieve a complexity of close to linear time.
+- The binary search in this program is based on the idea that if two strings have a common substring of length k, their longest common substring might be larger or equal to that but if they don't, then their largest substring will be smaller for sure.
+
+    ```python
+    while low <= high: #here high is the length of the smaller string
+          mid = (low+high)//2
+          result = search_hash(s1, s2, mid)
+          if result['found']:
+              low = mid + 1
+              start1, start2, max_len = result['1'], result['2'], result['max_length']
+          else:
+              high = mid - 1
+    ```
+
+- Here, mid serves as that k and if a substring of length mid is found, you try a higher mid, else you move lower until you find one that works!
+- To search for the hashes, it processes the 2 strings and searches for common substrings of length mid. It does so by choosing the smaller string and converting that into a hash-dictionary, where the key is a hash and the value is the index where that hash starts. For the larger one, it converts it into a regular hash-table in the form of an array where the index of the array refers to the starting position.
+- It then runs through the values of the hash-table and looks for matches in the hash-dict and if found, it stores the necessary starting positions. This process repeats twice for each of the prime numbers and if both return true, this indicates that there is a definitely a common substring and the binary search moves accordingly.
