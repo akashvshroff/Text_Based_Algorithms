@@ -28,6 +28,7 @@
 ### What is a good hash?
 
 - Now, rather than delving into the theory behind what makes a good hashing function and the concept of a universal family of hashes, I want to show you the two hashing algorithms that I've used in these programs, both polynomial hashes, where a large prime (greater than length of input string) and constant multiplier are used to minimise collisions to a probability of n/m where n is the length of the input and m is the prime number (read about it more [here.](https://cp-algorithms.com/string/string-hashing.html))
+
 - The first hash I employed is as follows:
 
     ```python
@@ -47,7 +48,7 @@
     - Mathematically, this is represented as:
 
         ![alt-text](https://github.com/akashvshroff/Text_Based_Algorithms/blob/master/Hashing_Based/Equations/h1.svg)
-        
+
     - Where n is the length of the string s.
 - The second hash function that I employed was:
 
