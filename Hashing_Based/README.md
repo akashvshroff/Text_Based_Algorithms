@@ -80,7 +80,7 @@
 - So why do we care about this? Well, it means that once we've calculated some initial hash, we can calculate the rest of the hashes in almost **constant time O(1).** Now that is something that is very alluring and key to our programs (especially in the Rabin-Karp algorithm).
 - You may be wondering how our present hashes can be converted into a rolling hash, well let me show you using our first hashing algorithm. (Excuse my handwriting - I have also not considered the modulo prime since it remains the same).
 
-    INSERT IMAGE
+![alt-text](https://github.com/akashvshroff/Text_Based_Algorithms/blob/master/Hashing_Based/Equations/rolling_hash_1.jpg)
 
 - Now given our first hashing algorithm, we can see that the hash of any substring actually depends on the hash of the substring after it and therefore, if we move from the end back to the beginning, for any H(i) we can calculate it in constant time provided we have H(i+1). Note, since our strings are 0-based, it would be S[i-1]. You can see the rolling hash code here:
 
