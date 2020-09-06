@@ -76,3 +76,58 @@
     - Now since I have shown you the hash functions that I used, let me show you why I used them and the one key feature that makes hashing so powerful.
 
 ### Rolling hash functions:
+- Presently, the advantage of using hashes in our programs isn't quite apparent yet, it seems like the same if not more work. You see, the key benefit of using hashes comes when you consider the idea of a **rolling hash**. A rolling hash is honestly just a fancier way of saying that you can calculate the hash for a particular substring or string using a hash value that you've already computed.
+- So why do we care about this? Well, it means that once we've calculated some initial hash, we can calculate the rest of the hashes in almost **constant time O(1).** Now that is something that is very alluring and key to our programs (especially in the Rabin-Karp algorithm).
+- You may be wondering how our present hashes can be converted into a rolling hash, well let me show you using our first hashing algorithm. (Excuse my handwriting - I have also not considered the modulo prime since it remains the same).
+
+    INSERT IMAGE
+
+- Now given our first hashing algorithm, we can see that the hash of any substring actually depends on the hash of the substring after it and therefore, if we move from the end back to the beginning, for any H(i) we can calculate it in constant time provided we have H(i+1). Note, since our strings are 0-based, it would be S[i-1]. You can see the rolling hash code here:
+
+    ```python
+    def precompute_hashes(T, len_p, P, X):
+        """
+        Precompute the required hashes of substrings of length len_p in T in
+        constant time using the hash of the next substring.
+        """
+        len_t = len(T)
+        H = [0 for _ in range(len_t-len_p+1)]
+        S = T[len_t-len_p:len_t]
+        H[len_t-len_p] = poly_hash(S, P, X)
+        y = pow(X, len_p, P)
+        for i in range(len_t-len_p-1, -1, -1):
+            H[i] = (X * H[i+1] + ord(T[i]) - y * ord(T[i+len_p])) % P
+        return H
+    ```
+    - Here we precompute the hashes in constant time using the end hash S in text T so we can easily compare hashes.
+
+- The very same idea is employed in the other hashing function and this relation is used to generate a neat rolling hash function like so:
+
+    ```python
+    def pre_process_string(s):
+        """
+        Preprocess the string and get 2 hash-tables using which you can compute the
+        hashes of 2 substrings in constant time. We use 2 hash-tables to lower the
+        probability that there is a collision (i.e same hash but diff substring) to
+        a very negligible amount (n/m where n is the lenght of the substring and m
+        is the prime number with which you take modulus.)
+        """
+        n = len(s)
+        base = pow(10, 9)
+        M1 = base+7
+        M2 = base+9  # i.e 10**9 + 9
+        # X = random.randint(1, base)
+        X = 263
+        h1 = [0 for _ in range(n+1)]
+        h2 = [0 for _ in range(n+1)]
+        for i in range(1, n+1):
+            h1[i] = (X*h1[i-1] + ord(s[i-1])) % M1
+            h2[i] = (X*h2[i-1] + ord(s[i-1])) % M2
+        return X, h1, h2, M1, M2
+
+    def hash_value(table, prime, x, start, length):
+        y = pow(x, length, prime)
+        hash_value = (table[start+length] - y*table[start]) % prime
+        return hash_value
+    ```
+    - Here we precompute a table of all the hash-values so far using our hashing function in the pre_process_string function and then in the hash_value function, we use a rolling hash relation in order to ascertain the required hash!
