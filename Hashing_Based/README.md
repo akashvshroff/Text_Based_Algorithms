@@ -148,3 +148,6 @@
 - Read more about the algorithm [here!](https://brilliant.org/wiki/rabin-karp-algorithm/)
 
 ### Substring Equality:
+- This program takes in one string and 3 inputs (start1,start2,length) and it outputs Yes if the substring from start1 till start1+length is equal to the substring from start2 to start2 + length. Instead of constantly splicing the string and checking for equality, using the second hashing algorithm and subsequent rolling hash, we can pre-process the string and generate a hash table from which we can obtain the hash-value for any substring in constant time.
+- We pre-process the string into 2 hash-tables in order to further minimize the chances of collisions and match the hashes twice and output 'Yes' if they match, else 'No'.
+- This program effectively displays the power of hashing in massively reducing the time it takes to solve a program.
