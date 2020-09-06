@@ -131,7 +131,7 @@
         return hash_value
     ```
     - Here we precompute a table of all the hash-values so far using our hashing function in the pre_process_string function and then in the hash_value function, we use a rolling hash relation in order to ascertain the required hash!
-    
+
 - We are now done with all our pre-processing and now know enough to understand the approaches required to solve the programs!
 
 ## The Programs:
@@ -145,5 +145,6 @@
 - The Rabin-Karp pattern matching algorithm succinctly uses hashing to return the starting positions of every occurrence of a pattern in a text. For example, with the text 'ABCDEBCDHEURBCD' and the pattern 'BCD', the algorithm would return 1,5,12 - 0-based values for the starting index of the pattern in the string.
 - The naïve algorithm for this, without the use of hashing, can solve it in O(nm) time where n is the length of the text and m is the length of the pattern. This Rabin Karp algorithm solves it in O(n+m) in the best and average case while O(nm) for the worst case (this case would only occur with a very bad hash function that leads to a collision or false-positive at each step).
 - The program uses the first hash function and its corresponding rolling hash function to precompute the hashes for all possible candidates of the matching substring from i = 0 to m-n+1. It then checks the hash of the pattern against the pre-computed hash of the substring and in case there is a match, it checks the substring against the pattern as an added measure of safety (this can be avoided by using multiple prime numbers and 2 hashing functions). In case they match, it appends i to the list of found indices and returns the list once all candidates have been found.
+- Read more about the algorithm [here!](https://brilliant.org/wiki/rabin-karp-algorithm/)
 
 ### Substring Equality:
